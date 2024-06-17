@@ -2,13 +2,11 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-import os
+import requests
+from io import BytesIO
 
 # Set app layout parameters
 st.set_page_config(layout="wide")
-
-# Define the base directory
-base_dir = r"C:\Users\Steven\Documents\BC_STRAVA_Kilimanjaro_App"
 
 # Define workout levels and their requirements
 workout_levels = {
@@ -26,16 +24,20 @@ workout_levels = {
     }
 }
 
-# Function to load data from Excel
-def load_data(file_path):
-    if not os.path.exists(file_path):
-        st.error(f"File not found: {file_path}")
+# Function to load data from URL
+def load_data(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = pd.read_excel(BytesIO(response.content))
+        return data
+    except Exception as e:
+        st.error(f"Error loading data: {e}")
         return None
-    return pd.read_excel(file_path)
 
-# Load the uploaded Excel file
-file_path = os.path.join(base_dir, "Kilimanjaro_Weekly_Scoreboard.xlsx")
-data = load_data(file_path)
+# URL of the Excel file in your GitHub repository
+file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
+data = load_data(file_url)
 
 if data is not None:
     # Function to convert minutes to hours:minutes format
