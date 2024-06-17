@@ -24,6 +24,9 @@ workout_levels = {
     }
 }
 
+# Include title in the app
+st.title("Throne of Africa Strava Bourbon Chaser Competition")
+
 # Function to load data from URL
 def load_data(url):
     try:
