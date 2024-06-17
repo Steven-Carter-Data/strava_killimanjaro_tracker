@@ -51,6 +51,10 @@ if data is not None:
         mins = minutes % 60
         return f"{hours}:{mins:02d}"
 
+    # Add image to the sidebar
+    image_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/BC_Kili_Logo.jpg?raw=true"
+    st.sidebar.image(image_url, use_column_width=True)
+
     # Sidebar for participant and week selection
     participants = data['Participant'].unique()
     participants = ['All Participants'] + list(participants)
