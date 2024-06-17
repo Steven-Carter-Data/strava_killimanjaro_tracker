@@ -24,6 +24,10 @@ workout_levels = {
     }
 }
 
+# Add flag to the top of the title
+flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
+st.image(flag_url, use_column_width=True)
+
 # Include title in the app
 st.title("Throne of Africa Strava Bourbon Chaser Competition")
 
