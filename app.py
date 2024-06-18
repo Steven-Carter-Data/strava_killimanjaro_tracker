@@ -82,7 +82,7 @@ if data is not None:
     image_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/BC_Kili_Logo.jpg?raw=true"
     st.markdown(f"""
         <div style="text-align: center;">
-            <img src="{flag_url}" width="200">
+            <img src="{image_url}" width="200">
         </div>
     """, unsafe_allow_html=True)
 
