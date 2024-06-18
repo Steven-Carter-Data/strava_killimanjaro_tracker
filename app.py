@@ -5,6 +5,11 @@ import plotly.graph_objects as go
 import requests
 from io import BytesIO
 
+# Flag colors for reference
+# #1EB53A -- Green
+# #FCD116 -- Yellow
+# #00A3DD -- Blue
+
 # Set app layout parameters
 st.set_page_config(layout="wide")
 
@@ -135,8 +140,8 @@ if data is not None:
                      labels={'value': 'Hours', 'Participant': 'Participant'},
                      barmode='group',
                      color_discrete_map={
-                         'Total Hours': '#1f77b4',
-                         'Zone 2 and Above Hours': '#ff7f0e'
+                         'Total Hours': '#1EB53A',
+                         'Zone 2 and Above Hours': '#00A3DD'
                      })
 
         # Add custom hover data for formatted time
