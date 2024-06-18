@@ -16,9 +16,9 @@ st.set_page_config(layout="wide")
 # Custom CSS for the title font
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');  /* Import a similar font */
+    @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');  /* Import a similar font */
     .title-font {
-        font-family: 'Bangers', cursive;  /* Apply the imported font */
+        font-family: 'Oswald', cursive;  /* Apply the imported font */
         color: #FCD116;
         font-size: 3em;
         text-align: center;
