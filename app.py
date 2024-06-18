@@ -51,7 +51,7 @@ with tab1:
     st.write("Select participant in the sidebar to see where you stand.")
 
 with tab2:
-    st.header("Predictive Modeling")
+    st.write("Coming soon!")
 
     # # URL of the Excel file in your GitHub repository
     # file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
