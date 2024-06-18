@@ -13,6 +13,18 @@ from io import BytesIO
 # Set app layout parameters
 st.set_page_config(layout="wide")
 
+# Custom CSS for title font
+st.markdown("""
+    <style>
+    .title-font {
+        font-family: 'Arial Black', Gadget, sans-serif;
+        color: #FCD116;
+        font-size: 3em;
+        text-align: center;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Define workout levels and their requirements
 workout_levels = {
     "Agile Antelope": {
@@ -34,7 +46,7 @@ flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/bl
 st.image(flag_url, use_column_width=False, width=200)
 
 # Include title in the app
-st.title("Throne of Africa Strava Bourbon Chaser Competition")
+st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chaser Competition</div>", unsafe_allow_html=True)
 
 # Function to load data from URL
 def load_data(url):
