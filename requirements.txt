@@ -4,4 +4,4 @@ numpy
 streamlit
 openpyxl
 pybase64
-sklearn
+scikit-learn
