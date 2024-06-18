@@ -188,11 +188,11 @@ if data is not None:
                 gauge={
                     'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
                     'bar': {'color': "#1EB53A"},
-                    'bordercolor': "gray",
+                    'bordercolor': "#000000",
                     'borderwidth': 2,
                     'steps': [
-                        {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FFDDC1"},
-                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#FF7F0E"}
+                        {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FCD116"},
+                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#00A3DD"}
                     ],
                 }
             ))
