@@ -204,7 +204,12 @@ if data is not None:
                         showarrow=False,
                         font=dict(size=120)
                     )
-                ]
+                ],
+                title={
+                    'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})",
+                    'x': 0.5,
+                    'xanchor': 'left'
+                }
             )
             st.plotly_chart(fig_gauge)
     else:
