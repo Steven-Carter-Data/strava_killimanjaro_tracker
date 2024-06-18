@@ -179,6 +179,7 @@ if data is not None:
         # #00A3DD -- Blue
         st.header('Zone 2 and Above Progress')
         for index, row in participant_progress.iterrows():
+            formatted_value = format_hours_minutes(row['Zone 2 and Above Hours'])
             fig_gauge = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=row['Zone 2 and Above Hours'],
