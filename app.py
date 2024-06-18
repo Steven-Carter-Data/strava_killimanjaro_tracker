@@ -194,4 +194,42 @@ if data is not None:
             fig_gauge.update_layout(
                 annotations=[
                     dict(
-                        x=0.5, y=0.4
+                        x=0.5, y=0.4,  # Position at the center
+                        text=formatted_value,  # Display the formatted value
+                        showarrow=False,
+                        font=dict(size=100)
+                    ),
+                    dict(
+                        x=0.5, y=0.0,  # Position slightly below the center value
+                        text="Completed",  # Display "Completed" text
+                        showarrow=False,
+                        font=dict(size=60)  # Font size for the "Completed" text
+                    )
+                ],
+                title={
+                    'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})",
+                    'x': 0.5,
+                    'xanchor': 'center'
+                }
+            )
+            st.plotly_chart(fig_gauge)
+    else:
+        st.warning(f"No data available for {selected_participant} (Week {selected_week})")
+
+    # Custom CSS for styling
+    st.markdown("""
+        <style>
+        .dataframe {
+            width: 100%;
+            overflow: auto;
+        }
+        .dataframe td, .dataframe th {
+            text-align: center;
+        }
+        .dataframe th {
+            background-color: #262730;
+            color: #FAFAFA;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
