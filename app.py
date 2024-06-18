@@ -205,10 +205,10 @@ if data is not None:
                         font=dict(size=120)
                     ),
                     dict(
-                        x=0.5, y=0.4,  # Position slightly below the center value
+                        x=0.5, y=0.1,  # Position slightly below the center value
                         text="Completed",  # Display "Completed" text
                         showarrow=False,
-                        font=dict(size=20)  # Font size for the "Completed" text
+                        font=dict(size=80)  # Font size for the "Completed" text
                     )
                 ],
                 title={
