@@ -61,7 +61,7 @@ if data is not None:
 
     # Sidebar for participant and week selection
     participants = data['Participant'].unique()
-    participants = ['All Bourbon Chasers'] + list(participants)
+    participants = ['All Participants'] + list(participants)
     weeks = data['Week'].unique()
     selected_participant = st.sidebar.selectbox('Select a Participant', participants)
     selected_week = st.sidebar.selectbox('Select a Week', weeks)
