@@ -20,7 +20,7 @@ st.markdown("""
         font-family: 'Arial Black', Gadget, sans-serif;
         color: #FCD116;
         font-size: 3em;
-        text-align: center;
+        text-align: left;
         background-color: #1EB53A;  /* Green background */
         padding: 10px;
         border: 3px solid #00A3DD;  /* Blue border */
