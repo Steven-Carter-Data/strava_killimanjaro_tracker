@@ -32,19 +32,19 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Overview", "Progress", "Settings"])
+tab1, tab2, tab3 = st.tabs(["Metrics", "Placeholder", "Placeholder"])
 
 with tab1:
-    st.header("Overview")
-    st.write("This is the overview tab where you can provide a summary of the competition.")
+    st.header("Metrics")
+    st.write("Select participant in the sidebar to see where you stand.")
 
 with tab2:
-    st.header("Progress")
-    st.write("This tab will show the progress of the participants.")
+    st.header("Placeholder")
+    #st.write("This tab will show the progress of the participants.")
 
 with tab3:
-    st.header("Settings")
-    st.write("This tab will contain settings and configurations.")
+    st.header("Placeholder")
+    #st.write("This tab will contain settings and configurations.")
 
 # Define workout levels and their requirements
 workout_levels = {
