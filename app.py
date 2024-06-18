@@ -174,10 +174,10 @@ if data is not None:
                 title={'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})"},
                 gauge={
                     'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
-                    'bar': {'color': "#1EB53A"},
+                    'bar': {'color': "#00A3DD"},
                     'steps': [
-                        {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FFDDC1"},
-                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#1EB53A"}
+                        {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FCD116"},
+                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#00A3DD"}
                     ],
                 }
             ))
