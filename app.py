@@ -184,7 +184,7 @@ if data is not None:
                 mode="gauge+number",
                 value=row['Zone 2 and Above Hours'],
                 title={'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})"},
-                #number={'valueformat': ''},
+                number={'suffix': ''},
                 gauge={
                     'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
                     'bar': {'color': "#1EB53A"},
