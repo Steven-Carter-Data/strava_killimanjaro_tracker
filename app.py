@@ -203,6 +203,12 @@ if data is not None:
                         text=formatted_value,  # Display the formatted value
                         showarrow=False,
                         font=dict(size=120)
+                    ),
+                    dict(
+                        x=0.5, y=0.4,  # Position slightly below the center value
+                        text="Completed",  # Display "Completed" text
+                        showarrow=False,
+                        font=dict(size=20)  # Font size for the "Completed" text
                     )
                 ],
                 title={
