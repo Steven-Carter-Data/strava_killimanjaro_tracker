@@ -31,6 +31,21 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Create tabs
+tab1, tab2, tab3 = st.tabs(["Overview", "Progress", "Settings"])
+
+with tab1:
+    st.header("Overview")
+    st.write("This is the overview tab where you can provide a summary of the competition.")
+
+with tab2:
+    st.header("Progress")
+    st.write("This tab will show the progress of the participants.")
+
+with tab3:
+    st.header("Settings")
+    st.write("This tab will contain settings and configurations.")
+
 # Define workout levels and their requirements
 workout_levels = {
     "Agile Antelope": {
