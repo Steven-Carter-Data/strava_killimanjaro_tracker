@@ -13,7 +13,7 @@ from io import BytesIO
 # Set app layout parameters
 st.set_page_config(layout="wide")
 
-# Custom CSS for title font
+# Custom CSS for the title font
 st.markdown("""
     <style>
     .title-font {
@@ -21,9 +21,13 @@ st.markdown("""
         color: #FCD116;
         font-size: 3em;
         text-align: center;
+        background-color: #1EB53A;  /* Green background */
+        padding: 10px;
+        border: 3px solid #00A3DD;  /* Blue border */
+        border-radius: 10px;
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # Define workout levels and their requirements
 workout_levels = {
