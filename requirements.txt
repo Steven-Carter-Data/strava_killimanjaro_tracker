@@ -3,4 +3,4 @@ pandas
 numpy
 streamlit
 openpyxl
-base64
+pybase64
