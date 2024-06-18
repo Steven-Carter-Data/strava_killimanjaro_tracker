@@ -208,7 +208,7 @@ if data is not None:
                 title={
                     'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})",
                     'x': 0.5,
-                    'xanchor': 'left'
+                    'xanchor': 'center'
                 }
             )
             st.plotly_chart(fig_gauge)
