@@ -35,7 +35,7 @@ st.markdown("""
 tab1, tab2, tab3 = st.tabs(["Metrics", "Placeholder", "Placeholder"])
 
 with tab1:
-    st.header("Metrics")
+    #st.header("Metrics")
     st.write("Select participant in the sidebar to see where you stand.")
 
 with tab2:
