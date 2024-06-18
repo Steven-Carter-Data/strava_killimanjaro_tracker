@@ -163,6 +163,9 @@ if data is not None:
         st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
 
         # Gauge Chart for Zone 2 and Above Progress
+        # #1EB53A -- Green
+        # #FCD116 -- Yellow
+        # #00A3DD -- Blue
         st.header('Zone 2 and Above Progress')
         for index, row in participant_progress.iterrows():
             fig_gauge = go.Figure(go.Indicator(
@@ -174,7 +177,7 @@ if data is not None:
                     'bar': {'color': "#1EB53A"},
                     'steps': [
                         {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FFDDC1"},
-                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#FF7F0E"}
+                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#1EB53A"}
                     ],
                 }
             ))
