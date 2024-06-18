@@ -20,11 +20,12 @@ st.markdown("""
         font-family: 'Arial Black', Gadget, sans-serif;
         color: #FCD116;
         font-size: 3em;
-        text-align: left;
+        text-align: center;
         background-color: #1EB53A;  /* Green background */
         padding: 10px;
         border: 3px solid #00A3DD;  /* Blue border */
         border-radius: 10px;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;  /* Black border around text */
     }
     </style>
 """, unsafe_allow_html=True)
