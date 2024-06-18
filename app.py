@@ -52,7 +52,7 @@ flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/bl
 st.image(flag_url, use_column_width=False, width=200)
 
 # Include title in the app
-st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chaser Competition</div>", unsafe_allow_html=True)
+st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
 
 # Function to load data from URL
 def load_data(url):
@@ -80,11 +80,7 @@ if data is not None:
 
     # Add image to the sidebar
     image_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/BC_Kili_Logo.jpg?raw=true"
-    st.markdown(f"""
-        <div style="text-align: center;">
-            <img src="{image_url}" width="200">
-        </div>
-    """, unsafe_allow_html=True)
+    st.sidebar.image(image_url, use_column_width=True)
 
     # Sidebar for participant and week selection
     participants = data['Participant'].unique()
