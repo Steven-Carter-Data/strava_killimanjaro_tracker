@@ -167,6 +167,12 @@ if data is not None:
         st.header(f'Time Left to Reach Weekly Goals (Week {selected_week})')
         st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
 
+        # Function to format hours and minutes for the gauge value
+        def format_hours_minutes(value):
+            hours = int(value)
+            minutes = int((value - hours) * 60)
+            return f"{hours}:{minutes:02d}"
+
         # Gauge Chart for Zone 2 and Above Progress
         # #1EB53A -- Green
         # #FCD116 -- Yellow
@@ -177,6 +183,7 @@ if data is not None:
                 mode="gauge+number",
                 value=row['Zone 2 and Above Hours'],
                 title={'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})"},
+                number={'valueformat': f'{formatted_value}'},
                 gauge={
                     'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
                     'bar': {'color': "#1EB53A"},
@@ -188,6 +195,16 @@ if data is not None:
                     ],
                 }
             ))
+            fig_gauge.update_layout(
+                annotations=[
+                    dict(
+                        x=0.5, y=0.5,  # Position at the center
+                        text=formatted_value,  # Display the formatted value
+                        showarrow=False,
+                        font=dict(size=20)
+                    )
+                ]
+            )
             st.plotly_chart(fig_gauge)
     else:
         st.warning(f"No data available for {selected_participant} (Week {selected_week})")
