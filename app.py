@@ -199,16 +199,16 @@ if data is not None:
             fig_gauge.update_layout(
                 annotations=[
                     dict(
-                        x=0.5, y=0.5,  # Position at the center
+                        x=0.5, y=0.4,  # Position at the center
                         text=formatted_value,  # Display the formatted value
                         showarrow=False,
-                        font=dict(size=120)
+                        font=dict(size=100)
                     ),
                     dict(
-                        x=0.5, y=0.1,  # Position slightly below the center value
+                        x=0.5, y=0.0,  # Position slightly below the center value
                         text="Completed",  # Display "Completed" text
                         showarrow=False,
-                        font=dict(size=80)  # Font size for the "Completed" text
+                        font=dict(size=60)  # Font size for the "Completed" text
                     )
                 ],
                 title={
