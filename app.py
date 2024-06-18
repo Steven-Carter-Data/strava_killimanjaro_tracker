@@ -61,13 +61,13 @@ if data is not None:
 
     # Sidebar for participant and week selection
     participants = data['Participant'].unique()
-    participants = ['All Participants'] + list(participants)
+    participants = ['All Bourbon Chasers'] + list(participants)
     weeks = data['Week'].unique()
     selected_participant = st.sidebar.selectbox('Select a Participant', participants)
     selected_week = st.sidebar.selectbox('Select a Week', weeks)
 
     # Filter data based on the selected participant and week
-    if selected_participant == 'All Participants':
+    if selected_participant == 'All Bourbon Chasers':
         participant_data = data[data['Week'] == selected_week]
     else:
         participant_data = data[(data['Participant'] == selected_participant) & (data['Week'] == selected_week)]
