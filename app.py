@@ -123,7 +123,7 @@ if data is not None:
         progress_df = calculate_progress(data)
 
         # Filter the progress dataframe based on the selected participant and week
-        if selected_participant == 'All Participants':
+        if selected_participant == 'All Bourbon Chasers':
             participant_progress = progress_df[progress_df['Week'] == selected_week]
         else:
             participant_progress = progress_df[(progress_df['Participant'] == selected_participant) & (progress_df['Week'] == selected_week)]
