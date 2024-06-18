@@ -1,10 +1,13 @@
+
+import base64
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import requests
 from io import BytesIO
-import base64
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 # Flag colors for reference
 # #1EB53A -- Green
@@ -41,15 +44,55 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Metrics", "Placeholder", "Placeholder"])
+tab1, tab2, tab3 = st.tabs(["Metrics", "Predictive Modeling", "Placeholder"])
 
 with tab1:
     #st.header("Metrics")
     st.write("Select participant in the sidebar to see where you stand.")
 
 with tab2:
-    st.header("Placeholder")
-    #st.write("This tab will show the progress of the participants.")
+    st.header("Predictive Modeling")
+
+    # URL of the Excel file in your GitHub repository
+    file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
+
+    # Function to load data from URL
+    def load_data(url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = pd.read_excel(BytesIO(response.content))
+            return data
+        except Exception as e:
+            st.error(f"Error loading data: {e}")
+            return None
+
+    data = load_data(file_url)
+
+    if data is not None:
+        # Prepare data for modeling
+        data['Total Duration (hours)'] = data['Total Duration'] / 60  # Convert minutes to hours
+        X = data[['Week', 'Total Duration (hours)']]  # Features: week number and total duration
+        y = data['Zone 2 and Above Hours']  # Target: zone 2 and above hours
+
+        # Split the data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Create and train the model
+        model = LinearRegression()
+        model.fit(X_train, y_train)
+
+        # Make predictions
+        y_pred = model.predict(X_test)
+
+        # Add predictions to the DataFrame
+        data['Predicted Zone 2 and Above Hours'] = model.predict(data[['Week', 'Total Duration (hours)']])
+
+        # Display predictions in the app
+        st.write('Predicted Zone 2 and Above Hours')
+        st.write(data[['Week', 'Total Duration (hours)', 'Zone 2 and Above Hours', 'Predicted Zone 2 and Above Hours']])
+    else:
+        st.warning("No data available to display predictions.")
 
 with tab3:
     st.header("Placeholder")
