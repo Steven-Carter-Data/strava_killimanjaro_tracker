@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import requests
 from io import BytesIO
+import base64
 
 # Flag colors for reference
 # #1EB53A -- Green
@@ -13,12 +14,20 @@ from io import BytesIO
 # Set app layout parameters
 st.set_page_config(layout="wide")
 
+# Read the font file and encode it in base64
+font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
+response = requests.get(font_url)
+font_base64 = base64.b64encode(response.content).decode('utf-8')
+
 # Custom CSS for the title font
-st.markdown("""
+st.markdown(f"""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');  /* Import a similar font */
-    .title-font {
-        font-family: 'Roboto Slab', serif;  /* Apply the imported font */
+    @font-face {{
+        font-family: 'JusticeLeague';
+        src: url(data:font/ttf;base64,{font_base64}) format('truetype');
+    }}
+    .title-font {{
+        font-family: 'JusticeLeague', serif;  /* Apply the imported font */
         color: #FCD116;
         font-size: 3em;
         text-align: center;
@@ -27,7 +36,7 @@ st.markdown("""
         border: 3px solid #00A3DD;  /* Blue border */
         border-radius: 10px;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;  /* Black border around text */
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
