@@ -202,7 +202,7 @@ if data is not None:
                         x=0.5, y=0.5,  # Position at the center
                         text=formatted_value,  # Display the formatted value
                         showarrow=False,
-                        font=dict(size=20)
+                        font=dict(size=50)
                     )
                 ]
             )
