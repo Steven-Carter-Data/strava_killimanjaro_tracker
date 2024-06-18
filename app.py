@@ -78,8 +78,7 @@ if data is not None:
         participant_data = data[(data['Participant'] == selected_participant) & (data['Week'] == selected_week)]
 
     if not participant_data.empty:
-        # Display raw data for the selected participant and week
-        st.header(f'Raw Data for {selected_participant} (Week {selected_week})')
+        with st.expander(f'Raw Data for {selected_participant} (Week {selected_week})'):
 
         # Convert relevant time columns to hours:minutes format
         participant_data['Total Duration'] = participant_data['Total Duration'].apply(minutes_to_hours_minutes)
