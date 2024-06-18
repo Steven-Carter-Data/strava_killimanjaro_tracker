@@ -199,10 +199,10 @@ if data is not None:
             fig_gauge.update_layout(
                 annotations=[
                     dict(
-                        x=0.5, y=0.5,  # Position at the center
+                        x=1, y=0.5,  # Position at the center
                         text=formatted_value,  # Display the formatted value
                         showarrow=False,
-                        font=dict(size=50)
+                        font=dict(size=120)
                     )
                 ]
             )
