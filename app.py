@@ -148,84 +148,83 @@ if data is not None:
                          '<extra></extra>',
            customdata=participant_progress[['Total Hours (formatted)', 'Zone 2 and Above Hours (formatted)']]
        )
-        st.plotly_chart(fig)
-        # Display the requirements for each workout level
-       st.sidebar.header('Workout Level Requirements')
-       for level, requirements in workout_levels.items():
-           st.sidebar.write(f"**{level}**")
-           st.sidebar.write(f"Minimum Hours: {minutes_to_hours_minutes(requirements['min_hours'] * 60)}")
-           st.sidebar.write(f"Zone 2 and Above Hours: {minutes_to_hours_minutes(requirements['zone2_and_above'] * 60)}")
-           st.sidebar.write("")
-        # Display the table with time needed to reach weekly goals
-       st.header(f'Time Left to Reach Weekly Goals (Week {selected_week})')
-       st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
-        # Function to format hours and minutes for the gauge value
-       def format_hours_minutes(value):
-            hours = int(value)
-            minutes = int((value - hours) * 60)
-            return f"{hours}:{minutes:02d}"
+       st.plotly_chart(fig)
+       # Display the requirements for each workout level
+      st.sidebar.header('Workout Level Requirements')
+      for level, requirements in workout_levels.items():
+          st.sidebar.write(f"**{level}**")
+          st.sidebar.write(f"Minimum Hours: {minutes_to_hours_minutes(requirements['min_hours'] * 60)}")
+          st.sidebar.write(f"Zone 2 and Above Hours: {minutes_to_hours_minutes(requirements['zone2_and_above'] * 60)}")
+          st.sidebar.write("")
+       # Display the table with time needed to reach weekly goals
+      st.header(f'Time Left to Reach Weekly Goals (Week {selected_week})')
+      st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
+       # Function to format hours and minutes for the gauge value
+      def format_hours_minutes(value):
+           hours = int(value)
+           minutes = int((value - hours) * 60)
+           return f"{hours}:{minutes:02d}"
 
-        # Gauge Chart for Zone 2 and Above Progress
-        # #1EB53A -- Green
-        # #FCD116 -- Yellow
-        # #00A3DD -- Blue
-        st.header('Zone 2 and Above Progress')
-        for index, row in participant_progress.iterrows():
-            formatted_value = format_hours_minutes(row['Zone 2 and Above Hours'])
-            fig_gauge = go.Figure(go.Indicator(
-                mode="gauge+number",
-                value=row['Zone 2 and Above Hours'],
-                title={'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})"},
-                number={'font': {'size': 1}},
-                gauge={
-                    'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
-                    'bar': {'color': "#1EB53A"},
-                    'bordercolor': "#000000",
-                    'borderwidth': 2,
-                    'steps': [
-                        {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FCD116"},
-                        {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#00A3DD"}
-                    ],
-                }
-            ))
-            fig_gauge.update_layout(
-                annotations=[
-                    dict(
-                        x=0.5, y=0.4,  # Position at the center
-                        text=formatted_value,  # Display the formatted value
-                        showarrow=False,
-                        font=dict(size=100)
-                    ),
-                    dict(
-                        x=0.5, y=0.0,  # Position slightly below the center value
-                        text="Completed",  # Display "Completed" text
-                        showarrow=False,
-                        font=dict(size=60)  # Font size for the "Completed" text
-                    )
-                ],
-                title={
-                    'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})",
-                    'x': 0.5,
-                    'xanchor': 'center'
-                }
-            )
-            st.plotly_chart(fig_gauge)
-    else:
-        st.warning(f"No data available for {selected_participant} (Week {selected_week})")
-
+       # Gauge Chart for Zone 2 and Above Progress
+       # #1EB53A -- Green
+       # #FCD116 -- Yellow
+       # #00A3DD -- Blue
+       st.header('Zone 2 and Above Progress')
+       for index, row in participant_progress.iterrows():
+           formatted_value = format_hours_minutes(row['Zone 2 and Above Hours'])
+           fig_gauge = go.Figure(go.Indicator(
+               mode="gauge+number",
+               value=row['Zone 2 and Above Hours'],
+               title={'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})"},
+               number={'font': {'size': 1}},
+               gauge={
+                   'axis': {'range': [None, workout_levels[row['Chosen Level']]['zone2_and_above']]},
+                   'bar': {'color': "#1EB53A"},
+                   'bordercolor': "#000000",
+                   'borderwidth': 2,
+                   'steps': [
+                       {'range': [0, workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5], 'color': "#FCD116"},
+                       {'range': [workout_levels[row['Chosen Level']]['zone2_and_above'] * 0.5, workout_levels[row['Chosen Level']]['zone2_and_above']], 'color': "#00A3DD"}
+                   ],
+               }
+           ))
+           fig_gauge.update_layout(
+               annotations=[
+                   dict(
+                       x=0.5, y=0.4,  # Position at the center
+                       text=formatted_value,  # Display the formatted value
+                       showarrow=False,
+                       font=dict(size=100)
+                   ),
+                   dict(
+                       x=0.5, y=0.0,  # Position slightly below the center value
+                       text="Completed",  # Display "Completed" text
+                       showarrow=False,
+                       font=dict(size=60)  # Font size for the "Completed" text
+                   )
+               ],
+               title={
+                   'text': f"{row['Participant']}'s Zone 2 and Above Progress (Week {selected_week})",
+                   'x': 0.5,
+                   'xanchor': 'center'
+               }
+           )
+           st.plotly_chart(fig_gauge)
+   else:
+       st.warning(f"No data available for {selected_participant} (Week {selected_week})")
     # Custom CSS for styling
-    st.markdown("""
-        <style>
-        .dataframe {
-            width: 100%;
-            overflow: auto;
-        }
-        .dataframe td, .dataframe th {
-            text-align: center;
-        }
-        .dataframe th {
-            background-color: #262730;
-            color: #FAFAFA;
-        }
-        </style>
-    """, unsafe_allow_html=True)
+   st.markdown("""
+       <style>
+       .dataframe {
+           width: 100%;
+           overflow: auto;
+       }
+       .dataframe td, .dataframe th {
+           text-align: center;
+       }
+       .dataframe th {
+           background-color: #262730;
+           color: #FAFAFA;
+       }
+       </style>
+   """, unsafe_allow_html=True)
