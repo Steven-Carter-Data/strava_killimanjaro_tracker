@@ -79,15 +79,15 @@ if data is not None:
 
     if not participant_data.empty:
        with st.expander(f'Raw Data for {selected_participant} (Week {selected_week})'):
-            # Convert relevant time columns to hours:minutes format
-            participant_data['Total Duration'] = participant_data['Total Duration'].apply(minutes_to_hours_minutes)
-            participant_data['Zone 1'] = participant_data['Zone 1'].apply(minutes_to_hours_minutes)
-            participant_data['Zone 2'] = participant_data['Zone 2'].apply(minutes_to_hours_minutes)
-            participant_data['Zone 3'] = participant_data['Zone 3'].apply(minutes_to_hours_minutes)
-            participant_data['Zone 4'] = participant_data['Zone 4'].apply(minutes_to_hours_minutes)
-            participant_data['Zone 5'] = participant_data['Zone 5'].apply(minutes_to_hours_minutes)
+        # Convert relevant time columns to hours:minutes format
+           participant_data['Total Duration'] = participant_data['Total Duration'].apply(minutes_to_hours_minutes)
+           participant_data['Zone 1'] = participant_data['Zone 1'].apply(minutes_to_hours_minutes)
+           participant_data['Zone 2'] = participant_data['Zone 2'].apply(minutes_to_hours_minutes)
+           participant_data['Zone 3'] = participant_data['Zone 3'].apply(minutes_to_hours_minutes)
+           participant_data['Zone 4'] = participant_data['Zone 4'].apply(minutes_to_hours_minutes)
+           participant_data['Zone 5'] = participant_data['Zone 5'].apply(minutes_to_hours_minutes)
 
-            st.dataframe(participant_data)
+           st.dataframe(participant_data)
 
         # Calculate progress towards workout level goal
         def calculate_progress(data):
