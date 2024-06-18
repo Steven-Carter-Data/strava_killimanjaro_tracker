@@ -89,84 +89,78 @@ if data is not None:
 
            st.dataframe(participant_data)
 
-        # Calculate progress towards workout level goal
-        def calculate_progress(data):
-            progress = []
-            for participant in data['Participant'].unique():
-                for week in data['Week'].unique():
-                    participant_data = data[(data['Participant'] == participant) & (data['Week'] == week)]
-                    if not participant_data.empty:
-                        chosen_level = participant_data['Workout Level'].iloc[0]
-                        level_requirements = workout_levels[chosen_level]
+       # Calculate progress towards workout level goal
+       def calculate_progress(data):
+           progress = []
+           for participant in data['Participant'].unique():
+               for week in data['Week'].unique():
+                   participant_data = data[(data['Participant'] == participant) & (data['Week'] == week)]
+                   if not participant_data.empty:
+                       chosen_level = participant_data['Workout Level'].iloc[0]
+                       level_requirements = workout_levels[chosen_level]
 
-                        total_time = participant_data['Total Duration'].sum()
-                        zone2_and_above_time = participant_data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum().sum()
+                       total_time = participant_data['Total Duration'].sum()
+                       zone2_and_above_time = participant_data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum().sum()
 
-                        total_hours = total_time / 60
-                        zone2_and_above_hours = zone2_and_above_time / 60
+                       total_hours = total_time / 60
+                       zone2_and_above_hours = zone2_and_above_time / 60
 
-                        time_needed = max(0, (level_requirements['min_hours'] * 60) - total_time)
-                        zone2_and_above_needed = max(0, (level_requirements['zone2_and_above'] * 60) - zone2_and_above_time)
+                       time_needed = max(0, (level_requirements['min_hours'] * 60) - total_time)
+                       zone2_and_above_needed = max(0, (level_requirements['zone2_and_above'] * 60) - zone2_and_above_time)
 
-                        progress.append({
-                            'Participant': participant,
-                            'Week': week,
-                            'Chosen Level': chosen_level,
-                            'Total Hours': total_hours,
-                            'Total Hours (formatted)': minutes_to_hours_minutes(total_time),
-                            'Zone 2 and Above Hours': zone2_and_above_hours,
-                            'Zone 2 and Above Hours (formatted)': minutes_to_hours_minutes(zone2_and_above_time),
-                            'Time Needed': minutes_to_hours_minutes(time_needed),
-                            'Zone 2 and Above Needed': minutes_to_hours_minutes(zone2_and_above_needed),
-                            'Meets Min Hours': total_hours >= level_requirements['min_hours'],
-                            'Meets Zone 2 and Above Hours': zone2_and_above_hours >= level_requirements['zone2_and_above']
-                        })
-            return pd.DataFrame(progress)
+                       progress.append({
+                           'Participant': participant,
+                           'Week': week,
+                           'Chosen Level': chosen_level,
+                           'Total Hours': total_hours,
+                           'Total Hours (formatted)': minutes_to_hours_minutes(total_time),
+                           'Zone 2 and Above Hours': zone2_and_above_hours,
+                           'Zone 2 and Above Hours (formatted)': minutes_to_hours_minutes(zone2_and_above_time),
+                           'Time Needed': minutes_to_hours_minutes(time_needed),
+                           'Zone 2 and Above Needed': minutes_to_hours_minutes(zone2_and_above_needed),
+                           'Meets Min Hours': total_hours >= level_requirements['min_hours'],
+                           'Meets Zone 2 and Above Hours': zone2_and_above_hours >= level_requirements['zone2_and_above']
+                       })
+           return pd.DataFrame(progress)
 
-        progress_df = calculate_progress(data)
+       progress_df = calculate_progress(data)
 
         # Filter the progress dataframe based on the selected participant and week
-        if selected_participant == 'All Bourbon Chasers':
-            participant_progress = progress_df[progress_df['Week'] == selected_week]
-        else:
-            participant_progress = progress_df[(progress_df['Participant'] == selected_participant) & (progress_df['Week'] == selected_week)]
-
+       if selected_participant == 'All Bourbon Chasers':
+           participant_progress = progress_df[progress_df['Week'] == selected_week]
+       else:
+           participant_progress = progress_df[(progress_df['Participant'] == selected_participant) & (progress_df['Week'] == selected_week)]
         # Display bar chart for progress
-        st.header(f'Progress Towards Weekly Zone 2+ Goal (Week {selected_week})')
-        fig = px.bar(participant_progress, x='Participant', y=['Total Hours', 'Zone 2 and Above Hours'],
-                     title=f'Progress Towards Weekly Zone 2+ Goal (Week {selected_week})',
-                     labels={'value': 'Hours', 'Participant': 'Participant'},
-                     barmode='group',
-                     color_discrete_map={
-                         'Total Hours': '#1EB53A',
-                         'Zone 2 and Above Hours': '#00A3DD'
-                     })
-
+       st.header(f'Progress Towards Weekly Zone 2+ Goal (Week {selected_week})')
+       fig = px.bar(participant_progress, x='Participant', y=['Total Hours', 'Zone 2 and Above Hours'],
+                    title=f'Progress Towards Weekly Zone 2+ Goal (Week {selected_week})',
+                    labels={'value': 'Hours', 'Participant': 'Participant'},
+                    barmode='group',
+                    color_discrete_map={
+                        'Total Hours': '#1EB53A',
+                        'Zone 2 and Above Hours': '#00A3DD'
+                    })
         # Add custom hover data for formatted time
-        fig.update_traces(
-            hovertemplate='<b>%{x}</b><br><br>' +
-                          'Total Hours: %{customdata[0]}<br>' +
-                          'Zone 2 and Above Hours: %{customdata[1]}<br>' +
-                          '<extra></extra>',
-            customdata=participant_progress[['Total Hours (formatted)', 'Zone 2 and Above Hours (formatted)']]
-        )
-
+       fig.update_traces(
+           hovertemplate='<b>%{x}</b><br><br>' +
+                         'Total Hours: %{customdata[0]}<br>' +
+                         'Zone 2 and Above Hours: %{customdata[1]}<br>' +
+                         '<extra></extra>',
+           customdata=participant_progress[['Total Hours (formatted)', 'Zone 2 and Above Hours (formatted)']]
+       )
         st.plotly_chart(fig)
-
         # Display the requirements for each workout level
-        st.sidebar.header('Workout Level Requirements')
-        for level, requirements in workout_levels.items():
-            st.sidebar.write(f"**{level}**")
-            st.sidebar.write(f"Minimum Hours: {minutes_to_hours_minutes(requirements['min_hours'] * 60)}")
-            st.sidebar.write(f"Zone 2 and Above Hours: {minutes_to_hours_minutes(requirements['zone2_and_above'] * 60)}")
-            st.sidebar.write("")
-
+       st.sidebar.header('Workout Level Requirements')
+       for level, requirements in workout_levels.items():
+           st.sidebar.write(f"**{level}**")
+           st.sidebar.write(f"Minimum Hours: {minutes_to_hours_minutes(requirements['min_hours'] * 60)}")
+           st.sidebar.write(f"Zone 2 and Above Hours: {minutes_to_hours_minutes(requirements['zone2_and_above'] * 60)}")
+           st.sidebar.write("")
         # Display the table with time needed to reach weekly goals
-        st.header(f'Time Left to Reach Weekly Goals (Week {selected_week})')
-        st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
-
+       st.header(f'Time Left to Reach Weekly Goals (Week {selected_week})')
+       st.dataframe(participant_progress[['Participant', 'Time Needed', 'Zone 2 and Above Needed']])
         # Function to format hours and minutes for the gauge value
-        def format_hours_minutes(value):
+       def format_hours_minutes(value):
             hours = int(value)
             minutes = int((value - hours) * 60)
             return f"{hours}:{minutes:02d}"
