@@ -73,21 +73,21 @@ with tab2:
         # Calculate average Zone 2 and above time per participant for each workout type
         data['Zone 2 and Above'] = data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum(axis=1)
 
-        avg_zone2_per_workout = data.groupby(['Participant', 'Workout Level'])['Zone 2 and Above'].mean().reset_index()
+        avg_zone2_per_workout = data.groupby(['Participant', 'Workout Level', 'Workout Type'])['Zone 2 and Above'].mean().reset_index()
 
         # Display the average Zone 2 and above time
-        st.subheader('Average Zone 2 and Above Time per Participant and Workout Level')
+        st.subheader('Average Zone 2 and Above Time per Participant, Workout Level, and Workout Type')
         st.dataframe(avg_zone2_per_workout)
 
-        # Plot the average Zone 2 and above time
-        fig = px.bar(avg_zone2_per_workout, x='Participant', y='Zone 2 and Above', color='Workout Level',
-                     title='Average Zone 2 and Above Time per Participant and Workout Level',
-                     labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'},
-                     barmode='group')
+        # Plot the average Zone 2 and above time using a sunburst chart
+        fig = px.sunburst(avg_zone2_per_workout, path=['Participant', 'Workout Level', 'Workout Type'], values='Zone 2 and Above',
+                          title='Average Zone 2 and Above Time per Participant, Workout Level, and Workout Type',
+                          labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'})
 
         st.plotly_chart(fig)
     else:
         st.warning("No data available to display analysis.")
+
 
 # Define workout levels and their requirements
 workout_levels = {
