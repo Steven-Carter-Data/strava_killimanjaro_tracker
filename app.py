@@ -44,7 +44,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Metrics", "Zone 2 Analysis", "Placeholder"])
+tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Placeholder"])
 
 with tab1:
     #st.header("Metrics")
@@ -89,9 +89,9 @@ with tab2:
     else:
         st.warning("No data available to display analysis.")
 
-with tab3:
-    st.header("Placeholder")
-    #st.write("This tab will contain settings and configurations.")
+# with tab3:
+#     st.header("Placeholder")
+#     #st.write("This tab will contain settings and configurations.")
 
 # Define workout levels and their requirements
 workout_levels = {
@@ -312,4 +312,8 @@ if data is not None:
         }
         </style>
     """, unsafe_allow_html=True)
+
+with tab3:
+    st.header("Placeholder")
+    #st.write("This tab will contain settings and configurations.")
 
