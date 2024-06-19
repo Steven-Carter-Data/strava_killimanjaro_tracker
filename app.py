@@ -44,7 +44,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Metrics", "Predictive Modeling", "Placeholder"])
+tab1, tab2, tab3 = st.tabs(["Metrics", "Zone 2 Analysis", "Placeholder"])
 
 with tab1:
     #st.header("Metrics")
