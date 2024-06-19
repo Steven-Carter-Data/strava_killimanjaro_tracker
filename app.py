@@ -89,10 +89,6 @@ with tab2:
     else:
         st.warning("No data available to display analysis.")
 
-# with tab3:
-#     st.header("Placeholder")
-#     #st.write("This tab will contain settings and configurations.")
-
 # Define workout levels and their requirements
 workout_levels = {
     "Agile Antelope": {
