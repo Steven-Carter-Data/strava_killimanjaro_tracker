@@ -17,6 +17,39 @@ from sklearn.model_selection import train_test_split
 # Set app layout parameters
 st.set_page_config(layout="wide")
 
+# # Read the font file and encode it in base64
+# font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
+# response = requests.get(font_url)
+# font_base64 = base64.b64encode(response.content).decode('utf-8')
+
+# # Custom CSS for the title font
+# st.markdown(f"""
+#     <style>
+#     @font-face {{
+#         font-family: 'JusticeLeague';
+#         src: url(data:font/ttf;base64,{font_base64}) format('truetype');
+#     }}
+#     .title-font {{
+#         font-family: 'JusticeLeague', serif;  /* Apply the imported font */
+#         color: #FCD116;
+#         font-size: 3em;
+#         text-align: center;
+#         background-color: #1EB53A;  /* Green background */
+#         padding: 10px;
+#         border: 3px solid #00A3DD;  /* Blue border */
+#         border-radius: 10px;
+#         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;  /* Black border around text */
+#     }}
+#     </style>
+# """, unsafe_allow_html=True)
+
+# Create tabs
+tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Placeholder"])
+
+with tab1:
+    #st.header("Metrics")
+    st.write("Select participant in the sidebar to see where you stand.")
+
 # Read the font file and encode it in base64
 font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
 response = requests.get(font_url)
@@ -42,13 +75,6 @@ st.markdown(f"""
     }}
     </style>
 """, unsafe_allow_html=True)
-
-# Create tabs
-tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Placeholder"])
-
-with tab1:
-    #st.header("Metrics")
-    st.write("Select participant in the sidebar to see where you stand.")
 
 # Define workout levels and their requirements
 workout_levels = {
