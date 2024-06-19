@@ -51,48 +51,43 @@ with tab1:
     st.write("Select participant in the sidebar to see where you stand.")
 
 with tab2:
-    st.write("Coming soon!")
+    st.header("Zone 2 and Above Time Analysis")
 
-    # # URL of the Excel file in your GitHub repository
-    # file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
+    # URL of the Excel file in your GitHub repository
+    file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
 
-    # # Function to load data from URL
-    # def load_data(url):
-    #     try:
-    #         response = requests.get(url)
-    #         response.raise_for_status()
-    #         data = pd.read_excel(BytesIO(response.content))
-    #         return data
-    #     except Exception as e:
-    #         st.error(f"Error loading data: {e}")
-    #         return None
+    # Function to load data from URL
+    def load_data(url):
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            data = pd.read_excel(BytesIO(response.content))
+            return data
+        except Exception as e:
+            st.error(f"Error loading data: {e}")
+            return None
 
-    # data = load_data(file_url)
+    data = load_data(file_url)
 
-    # if data is not None:
-    #     # Prepare data for modeling
-    #     data['Total Duration (hours)'] = data['Total Duration'] / 60  # Convert minutes to hours
-    #     X = data[['Week', 'Total Duration (hours)']]  # Features: week number and total duration
-    #     y = data['Zone 2 and Above Hours']  # Target: zone 2 and above hours
+    if data is not None:
+        # Calculate average Zone 2 and above time per participant for each workout type
+        data['Zone 2 and Above'] = data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum(axis=1)
 
-    #     # Split the data into training and testing sets
-    #     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        avg_zone2_per_workout = data.groupby(['Participant', 'Workout Level'])['Zone 2 and Above'].mean().reset_index()
 
-    #     # Create and train the model
-    #     model = LinearRegression()
-    #     model.fit(X_train, y_train)
+        # Display the average Zone 2 and above time
+        st.subheader('Average Zone 2 and Above Time per Participant and Workout Level')
+        st.dataframe(avg_zone2_per_workout)
 
-    #     # Make predictions
-    #     y_pred = model.predict(X_test)
+        # Plot the average Zone 2 and above time
+        fig = px.bar(avg_zone2_per_workout, x='Participant', y='Zone 2 and Above', color='Workout Level',
+                     title='Average Zone 2 and Above Time per Participant and Workout Level',
+                     labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'},
+                     barmode='group')
 
-    #     # Add predictions to the DataFrame
-    #     data['Predicted Zone 2 and Above Hours'] = model.predict(data[['Week', 'Total Duration (hours)']])
-
-    #     # Display predictions in the app
-    #     st.write('Predicted Zone 2 and Above Hours')
-    #     st.write(data[['Week', 'Total Duration (hours)', 'Zone 2 and Above Hours', 'Predicted Zone 2 and Above Hours']])
-    # else:
-    #     st.warning("No data available to display predictions.")
+        st.plotly_chart(fig)
+    else:
+        st.warning("No data available to display analysis.")
 
 with tab3:
     st.header("Placeholder")
