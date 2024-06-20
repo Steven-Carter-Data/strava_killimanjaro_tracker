@@ -284,12 +284,12 @@ with tab2:
         st.subheader('Average Zone 2 and Above Time per Participant and Workout Level')
         st.dataframe(avg_zone2_per_workout)
 
-        # Plot the average Zone 2 and above time using a sunburst chart
-        fig = px.sunburst(avg_zone2_per_workout, path=['Participant', 'Workout Level'], values='Zone 2 and Above',
-                          title='Average Zone 2 and Above Time per Participant, and Workout Level',
-                          labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'})
+        # # Plot the average Zone 2 and above time using a sunburst chart
+        # fig = px.sunburst(avg_zone2_per_workout, path=['Participant', 'Workout Level'], values='Zone 2 and Above',
+        #                   title='Average Zone 2 and Above Time per Participant, and Workout Level',
+        #                   labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'})
 
-        st.plotly_chart(fig)
+        # st.plotly_chart(fig)
     else:
         st.warning("No data available to display analysis.")
 
