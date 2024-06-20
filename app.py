@@ -56,13 +56,6 @@ workout_levels = {
     }
 }
 
-# # Add flag to the top of the title
-# flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
-# st.image(flag_url, use_column_width=False, width=200)
-
-# # Include title in the app
-# st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
-
 # Function to load data from URL
 def load_data(url):
     try:
@@ -84,7 +77,7 @@ with tab1:
 
     # Include title in the app
     st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
-    st.write("Select participant in the sidebar to see where you stand.")
+    st.header("Select participant in the sidebar to see where you stand.")
     
     data = load_data(file_url)
 
@@ -271,6 +264,12 @@ with tab1:
     """, unsafe_allow_html=True)
 
 with tab2:
+    # Add flag to the top of the title
+    flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
+    st.image(flag_url, use_column_width=False, width=200)
+
+    # Include title in the app
+    st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
     st.header("Zone 2 and Above Time Analysis")
 
     data = load_data(file_url)
@@ -295,6 +294,12 @@ with tab2:
         st.warning("No data available to display analysis.")
 
 with tab3:
+    # Add flag to the top of the title
+    flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
+    st.image(flag_url, use_column_width=False, width=200)
+
+    # Include title in the app
+    st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
     st.header("Placeholder")
     # Add any content you want for tab 3 here
 
