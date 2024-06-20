@@ -278,10 +278,10 @@ with tab2:
         # Calculate average Zone 2 and above time per participant for each workout type
         data['Zone 2 and Above'] = data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum(axis=1)
 
-        avg_zone2_per_workout = data.groupby(['Participant', 'Workout Level', 'Workout Type'])['Zone 2 and Above'].mean().reset_index()
+        avg_zone2_per_workout = data.groupby(['Participant', 'Workout Level'])['Zone 2 and Above'].mean().reset_index()
 
         # Display the average Zone 2 and above time
-        st.subheader('Average Zone 2 and Above Time per Participant, Workout Level, and Workout Type')
+        st.subheader('Average Zone 2 and Above Time per Participant and Workout Level')
         st.dataframe(avg_zone2_per_workout)
 
         # Plot the average Zone 2 and above time using a sunburst chart
