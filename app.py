@@ -56,12 +56,12 @@ workout_levels = {
     }
 }
 
-# Add flag to the top of the title
-flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
-st.image(flag_url, use_column_width=False, width=200)
+# # Add flag to the top of the title
+# flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
+# st.image(flag_url, use_column_width=False, width=200)
 
-# Include title in the app
-st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
+# # Include title in the app
+# st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
 
 # Function to load data from URL
 def load_data(url):
@@ -78,6 +78,12 @@ def load_data(url):
 file_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/Kilimanjaro_Weekly_Scoreboard.xlsx?raw=true"
 
 with tab1:
+    # Add flag to the top of the title
+    flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
+    st.image(flag_url, use_column_width=False, width=200)
+
+    # Include title in the app
+    st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
     st.write("Select participant in the sidebar to see where you stand.")
     
     data = load_data(file_url)
