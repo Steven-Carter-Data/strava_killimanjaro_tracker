@@ -266,6 +266,62 @@ with tab1:
         </style>
     """, unsafe_allow_html=True)
 
+    # Function to calculate progress towards workout level goal
+    def calculate_progress(data):
+        progress = []
+        for participant in data['Participant'].unique():
+            for week in data['Week'].unique():
+                participant_data = data[(data['Participant'] == participant) & (data['Week'] == week)]
+                if not participant_data.empty:
+                    chosen_level = participant_data['Workout Level'].iloc[0]
+                    level_requirements = workout_levels[chosen_level]
+
+                    total_time = participant_data['Total Duration'].sum()
+                    zone2_and_above_time = participant_data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum().sum()
+
+                    total_hours = total_time / 60
+                    zone2_and_above_hours = zone2_and_above_time / 60
+
+                    time_needed = max(0, (level_requirements['min_hours'] * 60) - total_time)
+                    zone2_and_above_needed = max(0, (level_requirements['zone2_and_above'] * 60) - zone2_and_above_time)
+
+                    progress.append({
+                        'Participant': participant,
+                        'Week': week,
+                        'Chosen Level': chosen_level,
+                        'Total Hours': total_hours,
+                        'Total Hours (formatted)': minutes_to_hours_minutes(total_time),
+                        'Zone 2 and Above Hours': zone2_and_above_hours,
+                        'Zone 2 and Above Hours (formatted)': minutes_to_hours_minutes(zone2_and_above_time),
+                        'Time Needed': minutes_to_hours_minutes(time_needed),
+                        'Zone 2 and Above Needed': minutes_to_hours_minutes(zone2_and_above_needed),
+                        'Meets Min Hours': total_hours >= level_requirements['min_hours'],
+                        'Meets Zone 2 and Above Hours': zone2_and_above_hours >= level_requirements['zone2_and_above']
+                    })
+        return pd.DataFrame(progress)
+
+    progress_df = calculate_progress(data)
+
+    # Calculate leaderboard
+    def calculate_leaderboard(progress_df):
+        leaderboard = []
+        for participant in progress_df['Participant'].unique():
+            participant_data = progress_df[progress_df['Participant'] == participant]
+            total_weeks = participant_data['Week'].nunique()
+            weeks_met_min_hours = participant_data['Meets Min Hours'].sum()
+            weeks_met_zone2_and_above = participant_data['Meets Zone 2 and Above Hours'].sum()
+
+            leaderboard.append({
+                'Participant': participant,
+                #'Total Weeks': total_weeks,
+                'Weeks Met Min Hours': weeks_met_min_hours,
+                'Weeks Met Zone 2 and Above': weeks_met_zone2_and_above,
+                'Weeks Met Both Requirements': participant_data[(participant_data['Meets Min Hours']) & (participant_data['Meets Zone 2 and Above Hours'])].shape[0]
+            })
+        return pd.DataFrame(leaderboard)
+
+    leaderboard_df = calculate_leaderboard(progress_df)
+
 with tab2:
     # Add flag to the top of the title
     flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
@@ -331,63 +387,11 @@ with tab3:
     st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
     st.header("Leaderboard")
 
-    # Function to calculate progress towards workout level goal
-def calculate_progress(data):
-    progress = []
-    for participant in data['Participant'].unique():
-        for week in data['Week'].unique():
-            participant_data = data[(data['Participant'] == participant) & (data['Week'] == week)]
-            if not participant_data.empty:
-                chosen_level = participant_data['Workout Level'].iloc[0]
-                level_requirements = workout_levels[chosen_level]
+    st.dataframe(leaderboard_df)
 
-                total_time = participant_data['Total Duration'].sum()
-                zone2_and_above_time = participant_data[['Zone 2', 'Zone 3', 'Zone 4', 'Zone 5']].sum().sum()
+    
 
-                total_hours = total_time / 60
-                zone2_and_above_hours = zone2_and_above_time / 60
 
-                time_needed = max(0, (level_requirements['min_hours'] * 60) - total_time)
-                zone2_and_above_needed = max(0, (level_requirements['zone2_and_above'] * 60) - zone2_and_above_time)
-
-                progress.append({
-                    'Participant': participant,
-                    'Week': week,
-                    'Chosen Level': chosen_level,
-                    'Total Hours': total_hours,
-                    'Total Hours (formatted)': minutes_to_hours_minutes(total_time),
-                    'Zone 2 and Above Hours': zone2_and_above_hours,
-                    'Zone 2 and Above Hours (formatted)': minutes_to_hours_minutes(zone2_and_above_time),
-                    'Time Needed': minutes_to_hours_minutes(time_needed),
-                    'Zone 2 and Above Needed': minutes_to_hours_minutes(zone2_and_above_needed),
-                    'Meets Min Hours': total_hours >= level_requirements['min_hours'],
-                    'Meets Zone 2 and Above Hours': zone2_and_above_hours >= level_requirements['zone2_and_above']
-                })
-    return pd.DataFrame(progress)
-
-progress_df = calculate_progress(data)
-
-# Calculate leaderboard
-def calculate_leaderboard(progress_df):
-    leaderboard = []
-    for participant in progress_df['Participant'].unique():
-        participant_data = progress_df[progress_df['Participant'] == participant]
-        total_weeks = participant_data['Week'].nunique()
-        weeks_met_min_hours = participant_data['Meets Min Hours'].sum()
-        weeks_met_zone2_and_above = participant_data['Meets Zone 2 and Above Hours'].sum()
-
-        leaderboard.append({
-            'Participant': participant,
-            #'Total Weeks': total_weeks,
-            'Weeks Met Min Hours': weeks_met_min_hours,
-            'Weeks Met Zone 2 and Above': weeks_met_zone2_and_above,
-            'Weeks Met Both Requirements': participant_data[(participant_data['Meets Min Hours']) & (participant_data['Meets Zone 2 and Above Hours'])].shape[0]
-        })
-    return pd.DataFrame(leaderboard)
-
-leaderboard_df = calculate_leaderboard(progress_df)
-
-st.dataframe(leaderboard_df)
     
 
 
