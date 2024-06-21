@@ -385,7 +385,7 @@ with tab3:
 
     # Include title in the app
     st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
-    st.header(:hiking_boot:"Strava Competition Leaderboard":mountain:)
+    st.header(":hiking_boot:Strava Competition Leaderboard:mountain:")
 
     st.dataframe(leaderboard_df)
 
