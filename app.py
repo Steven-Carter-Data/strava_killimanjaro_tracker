@@ -90,17 +90,20 @@ with tab1:
             mins = minutes % 60
             return f"{hours}:{mins:02d}"
 
-        # Add image to the sidebar
+        # Add image to the 
         image_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/BC_Kili_Logo.jpg?raw=true"
-        st.sidebar.image(image_url, use_column_width=True)
+        st..image(image_url, use_column_width=True)
 
-        # Sidebar for participant and week selection
+        #  for participant and week selection
         participants = data['Participant'].unique()
         participants = ['All Bourbon Chasers'] + list(participants)
         weeks = data['Week'].unique()
         latest_week = max(weeks)  # Get the latest week
+
         selected_participant = st.sidebar.selectbox('Select a Participant', participants)
-        selected_week = st.sidebar.selectbox('Select a Week', weeks)
+        selected_week = st.sidebar.selectbox('Select a Week', weeks, index=len(weeks)-1)  # Default to the latest week
+        #selected_participant = st.sidebar.selectbox('Select a Participant', participants)
+        #selected_week = st.sidebar.selectbox('Select a Week', weeks)
 
         # Filter data based on the selected participant and week
         if selected_participant == 'All Bourbon Chasers':
