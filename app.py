@@ -98,6 +98,7 @@ with tab1:
         participants = data['Participant'].unique()
         participants = ['All Bourbon Chasers'] + list(participants)
         weeks = data['Week'].unique()
+        latest_week = max(weeks)  # Get the latest week
         selected_participant = st.sidebar.selectbox('Select a Participant', participants)
         selected_week = st.sidebar.selectbox('Select a Week', weeks)
 
