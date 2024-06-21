@@ -299,14 +299,22 @@ with tab2:
 
         for week in weeks:
             week_data = data[data['Week'] == week]
-            longest_run = week_data[week_data['Workout Type'] == 'Run']['Total Duration'].max()
-            longest_ride = week_data[week_data['Workout Type'] == 'Ride']['Total Duration'].max()
-            longest_duration = week_data['Total Duration'].max()
+            
+            longest_run_data = week_data[week_data['Workout Type'] == 'Run'].nlargest(1, 'Total Duration')
+            longest_ride_data = week_data[week_data['Workout Type'] == 'Ride'].nlargest(1, 'Total Duration')
+            longest_duration_data = week_data.nlargest(1, 'Total Duration')
+
+            longest_run = longest_run_data['Total Duration'].max()
+            longest_ride = longest_ride_data['Total Duration'].max()
+            longest_duration = longest_duration_data['Total Duration'].max()
 
             kpis.append({
                 'Week': week,
+                'Participant - Longest Run': longest_run_data['Participant'].values[0] if not longest_run_data.empty else 'N/A',
                 'Longest Run (min)': minutes_to_hours_minutes(longest_run) if not np.isnan(longest_run) else 'N/A',
+                'Participant - Longest Ride': longest_ride_data['Participant'].values[0] if not longest_ride_data.empty else 'N/A',
                 'Longest Ride (min)': minutes_to_hours_minutes(longest_ride) if not np.isnan(longest_ride) else 'N/A',
+                'Participant - Longest Duration': longest_duration_data['Participant'].values[0] if not longest_duration_data.empty else 'N/A',
                 'Longest Duration (min)': minutes_to_hours_minutes(longest_duration) if not np.isnan(longest_duration) else 'N/A',
             })
         return pd.DataFrame(kpis)
