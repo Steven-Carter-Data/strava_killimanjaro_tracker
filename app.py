@@ -13,7 +13,7 @@ import numpy as np
 st.set_page_config(layout="wide")
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Placeholder"])
+tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Leaderboard"])
 
 # Read the font file and encode it in base64
 font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
@@ -378,7 +378,7 @@ def calculate_leaderboard(progress_df):
 
         leaderboard.append({
             'Participant': participant,
-            'Total Weeks': total_weeks,
+            #'Total Weeks': total_weeks,
             'Weeks Met Min Hours': weeks_met_min_hours,
             'Weeks Met Zone 2 and Above': weeks_met_zone2_and_above,
             'Weeks Met Both Requirements': participant_data[(participant_data['Meets Min Hours']) & (participant_data['Meets Zone 2 and Above Hours'])].shape[0]
