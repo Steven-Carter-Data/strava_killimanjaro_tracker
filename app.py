@@ -92,7 +92,7 @@ with tab1:
 
         # Add image to the 
         image_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/BC_Kili_Logo.jpg?raw=true"
-        st..image(image_url, use_column_width=True)
+        st.image(image_url, use_column_width=True)
 
         #  for participant and week selection
         participants = data['Participant'].unique()
