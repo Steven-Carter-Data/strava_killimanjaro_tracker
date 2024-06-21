@@ -102,8 +102,6 @@ with tab1:
 
         selected_participant = st.sidebar.selectbox('Select a Participant', participants)
         selected_week = st.sidebar.selectbox('Select a Week', weeks, index=len(weeks)-1)  # Default to the latest week
-        #selected_participant = st.sidebar.selectbox('Select a Participant', participants)
-        #selected_week = st.sidebar.selectbox('Select a Week', weeks)
 
         # Filter data based on the selected participant and week
         if selected_participant == 'All Bourbon Chasers':
@@ -288,14 +286,32 @@ with tab2:
         st.subheader('Average Zone 2 and Above Time per Participant and Workout Level')
         st.dataframe(avg_zone2_per_workout)
 
-        # # Plot the average Zone 2 and above time using a sunburst chart
-        # fig = px.sunburst(avg_zone2_per_workout, path=['Participant', 'Workout Level'], values='Zone 2 and Above',
-        #                   title='Average Zone 2 and Above Time per Participant, and Workout Level',
-        #                   labels={'Zone 2 and Above': 'Average Zone 2 and Above Time (minutes)', 'Participant': 'Participant'})
-
-        # st.plotly_chart(fig)
+        
     else:
         st.warning("No data available to display analysis.")
+
+    st.header("Weekly KPIs")
+
+    def calculate_kpis(data):
+        kpis = []
+        weeks = data['Week'].unique()
+
+        for week in weeks:
+            week_data = data[data['Week'] == week]
+            longest_run = week_data[week_data['Workout Type'] == 'Run']['Total Duration'].max()
+            longest_ride = week_data[week_data['Workout Type'] == 'Ride']['Total Duration'].max()
+            longest_duration = week_data['Total Duration'].max()
+
+            kpis.append({
+                'Week': week,
+                'Longest Run (min)': minutes_to_hours_minutes(longest_run) if not np.isnan(longest_run) else 'N/A',
+                'Longest Ride (min)': minutes_to_hours_minutes(longest_ride) if not np.isnan(longest_ride) else 'N/A',
+                'Longest Duration (min)': minutes_to_hours_minutes(longest_duration) if not np.isnan(longest_duration) else 'N/A',
+            })
+        return pd.DataFrame(kpis)
+
+    kpi_df = calculate_kpis(data)
+    st.dataframe(kpi_df)
 
 with tab3:
     # Add flag to the top of the title
