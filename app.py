@@ -291,7 +291,7 @@ with tab2:
     else:
         st.warning("No data available to display analysis.")
 
-    st.header("Weekly KPIs")
+    st.header("Weekly Best")
 
     def calculate_kpis(data):
         kpis = []
