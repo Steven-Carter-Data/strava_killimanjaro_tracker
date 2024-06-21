@@ -5,3 +5,4 @@ streamlit
 openpyxl
 pybase64
 scikit-learn
+numpy
