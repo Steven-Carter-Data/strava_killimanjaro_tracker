@@ -43,9 +43,17 @@ st.markdown(f"""
 
 # Define workout levels and their requirements
 workout_levels = {
+    "Sauntering Hippo": {
+        "min_hours": 4,
+        "zone2_and_above": 3.2
+    },
     "Agile Antelope": {
         "min_hours": 5,
         "zone2_and_above": 4
+    },
+    "Wily Hyena": {
+        "min_hours": 6,
+        "zone2_and_above": 4.8
     },
     "Mighty Monkey": {
         "min_hours": 7,
