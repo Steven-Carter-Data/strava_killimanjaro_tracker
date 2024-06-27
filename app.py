@@ -330,6 +330,23 @@ with tab1:
 
     leaderboard_df = calculate_leaderboard(progress_df)
 
+    # Line Chart for Zone 2 and Above Progress Over Time
+    st.header('Zone 2 and Above Progress Over Time')
+    if selected_participant == 'All Bourbon Chasers':
+        progress_over_time_data = progress_df
+    else:
+        progress_over_time_data = progress_df[progress_df['Participant'] == selected_participant]
+    
+    fig = px.line(progress_over_time_data, x='Week', y='Zone 2 and Above Hours', color='Participant',
+                  title=f'Zone 2 and Above Progress Over Time',
+                  markers=True)  # Add markers for better data point visibility
+
+    fig.update_traces(hovertemplate='<b>%{x}</b><br><br>' +
+                                  'Zone 2 and Above Hours: %{y:.2f}<br>' +
+                                  '<extra></extra>')
+
+    st.plotly_chart(fig)
+
 with tab2:
     # Add flag to the top of the title
     flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
