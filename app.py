@@ -403,6 +403,14 @@ with tab2:
 
     st.plotly_chart(fig)
 
+    # Scatter Plot: Zone 2 Time vs. Total Distance
+    st.header('Zone 2 Time vs. Total Distance')
+    fig = px.scatter(data, x='Zone 2 and Above', y='Total Distance', color='Participant', 
+                     title='Relationship between Zone 2 Time and Total Distance',
+                     trendline="ols")  # Add a linear regression trendline
+    st.plotly_chart(fig)
+
+
 with tab3:
     # Add flag to the top of the title
     flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
