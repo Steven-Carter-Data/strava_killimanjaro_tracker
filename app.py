@@ -13,7 +13,7 @@ import numpy as np
 st.set_page_config(layout="wide")
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Leaderboard"])
+tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Testing!"])
 
 # Read the font file and encode it in base64
 font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
