@@ -416,7 +416,7 @@ with tab3:
         paper_bgcolor='#262730',  # Dark background for plot area
         font=dict(color="#FAFAFA"),  # White text color
         title_font=dict(size=20),
-        title_x=0.5  # Center the title
+        title_x=0.0  # Left align the title
     )
 
     fig.update_traces(textposition='outside', textfont=dict(size=14))  # Text outside bars
