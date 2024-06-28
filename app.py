@@ -387,21 +387,27 @@ with tab2:
     kpi_df = calculate_kpis(data)
     st.dataframe(kpi_df)
 
-    # Line Chart for Zone 2 and Above Progress Over Time
-    st.header('Zone 2 and Above Progress Over Time')
-    if selected_participant == 'All Bourbon Chasers':
-        progress_over_time_data = progress_df
-    else:
-        progress_over_time_data = progress_df[progress_df['Participant'] == selected_participant]
-    
-    fig = px.line(progress_over_time_data, x='Week', y='Zone 2 and Above Hours', color='Participant',
-                  title=f'Zone 2 and Above Progress Over Time',
-                  markers=True)  # Add markers for better data point visibility
+    # Convert `Total Duration` to numeric (assuming it's currently in a time format)
+    data['Total Duration'] = pd.to_timedelta(data['Total Duration']).dt.total_seconds() / 60
 
-    fig.update_traces(hovertemplate='<b>%{x}</b><br><br>' +
-                                  'Zone 2 and Above Hours: %{y:.2f}<br>' +
-                                  '<extra></extra>')
+    # Aggregate data to get total weekly duration per participant
+    weekly_duration_data = data.groupby(['Participant', 'Week'])['Total Duration'].sum().reset_index()
 
+    # Merge with original data to get workout levels
+    merged_data = pd.merge(weekly_duration_data, data[['Participant', 'Week', 'Workout Level']], on=['Participant', 'Week'], how='left')
+
+    # Drop duplicates to ensure each participant-week combination appears only once
+    merged_data = merged_data.drop_duplicates()
+
+    # Rename the column for clarity
+    merged_data = merged_data.rename(columns={'Total Duration': 'Total Weekly Duration'})
+
+    # Create scatter plot using Plotly Express
+    fig = px.scatter(merged_data, x='Workout Level', y='Total Weekly Duration', color='Participant',
+                    title='Relationship Between Workout Level and Total Weekly Duration',
+                    labels={'Total Weekly Duration': 'Total Weekly Duration (minutes)'})
+
+    # Show the plot in Streamlit    
     st.plotly_chart(fig)
 
 
