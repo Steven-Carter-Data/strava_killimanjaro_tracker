@@ -400,17 +400,29 @@ with tab3:
 
     st.dataframe(leaderboard_df)
 
-    # Leaderboard Chart
-    st.header("Strava Competition Leaderboard Visualization")
-    plt.figure(figsize=(10, 6))
-    plt.bar(leaderboard_df['Participant'], leaderboard_df['Weeks Met Both Requirements'])
-    plt.xlabel('Participant')
-    plt.ylabel('Weeks Met Both Requirements')
-    plt.title('Overall Leaderboard')
-    plt.xticks(rotation=45)
-    st.pyplot(plt)
+    fig = px.bar(leaderboard_df, x='Participant', y='Weeks Met Both Requirements',
+                 text='Weeks Met Both Requirements',
+                 title="Weeks Participants Met Both Requirements",
+                 labels={'Weeks Met Both Requirements':'Weeks'},
+                 color='Weeks Met Both Requirements',
+                 color_continuous_scale='Viridis')  # Use a continuous color scale
 
-    
+    # Customization Options
+    fig.update_layout(
+        xaxis_title='Participant',
+        yaxis_title='Weeks Met Both Requirements',
+        xaxis={'categoryorder': 'total descending'},
+        plot_bgcolor='#262730',  # Dark background
+        paper_bgcolor='#262730',  # Dark background for plot area
+        font=dict(color="#FAFAFA"),  # White text color
+        title_font=dict(size=20),
+        title_x=0.5  # Center the title
+    )
+
+    fig.update_traces(textposition='outside', textfont=dict(size=14))  # Text outside bars
+
+    st.plotly_chart(fig)
+
 
 
     
