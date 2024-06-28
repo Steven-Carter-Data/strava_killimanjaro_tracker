@@ -388,31 +388,6 @@ with tab2:
     kpi_df = calculate_kpis(data)
     st.dataframe(kpi_df)
 
-    # Convert `Total Duration` to numeric (assuming it's currently in a time format)
-    data['Total Duration'] = pd.to_timedelta(data['Total Duration']).dt.total_seconds() / 60
-
-    # Aggregate data to get total weekly duration per participant
-    weekly_duration_data = data.groupby(['Participant', 'Week'])['Total Duration'].sum().reset_index()
-
-    # Merge with original data to get workout levels
-    merged_data = pd.merge(weekly_duration_data, data[['Participant', 'Week', 'Workout Level']], on=['Participant', 'Week'], how='left')
-
-    # Drop duplicates to ensure each participant-week combination appears only once
-    merged_data = merged_data.drop_duplicates()
-
-    # Rename the column for clarity
-    merged_data = merged_data.rename(columns={'Total Duration': 'Total Weekly Duration'})
-
-    # Create the Altair scatter plot
-    chart = alt.Chart(merged_data).mark_circle(size=60).encode(
-        x=alt.X('Workout Level:N', axis=alt.Axis(labelAngle=-45)),  # Workout Level as nominal (categorical)
-        y='Total Weekly Duration:Q',  # Total Weekly Duration as quantitative
-        color='Participant:N',  # Color by Participant
-        tooltip=['Participant', 'Workout Level', 'Total Weekly Duration']  # Add tooltips
-    ).properties(
-        title='Relationship Between Workout Level and Total Weekly Duration'
-    ).interactive()
-
 with tab3:
     # Add flag to the top of the title
     flag_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/blob/main/tanzania_flag.png?raw=true"
