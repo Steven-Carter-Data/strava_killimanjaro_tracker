@@ -404,20 +404,6 @@ with tab2:
 
     st.plotly_chart(fig)
 
-    # Filter out rows with missing Zone 2 and Above data
-    data = data.dropna(subset=['Zone 2 and Above'])
-    
-    # Scatter Plot: Zone 2 Time vs. Total Distance
-    st.header('Zone 2 Time vs. Total Distance')
-    fig = px.scatter(data, x='Zone 2 and Above', y='Total Distance', color='Participant', 
-                    title='Relationship between Zone 2 Time and Total Distance',
-                    trendline="ols")  # Add a linear regression trendline
-    fig.update_traces(marker=dict(opacity=0.8, size=10),
-                    selector=dict(mode='markers'))
-    fig.update_xaxes(range=[0, data['Zone 2 and Above'].max() * 1.1])
-    fig.update_yaxes(range=[0, data['Total Distance'].max() * 1.1])
-    st.plotly_chart(fig)
-
 
 with tab3:
     # Add flag to the top of the title
