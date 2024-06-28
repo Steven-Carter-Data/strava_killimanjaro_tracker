@@ -9,7 +9,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import numpy as np
 import statsmodels
-import altair
+import altair as alt
 
 # Set app layout parameters
 st.set_page_config(layout="wide")
@@ -412,7 +412,6 @@ with tab2:
     ).properties(
         title='Relationship Between Workout Level and Total Weekly Duration'
     ).interactive()
-
 
 with tab3:
     # Add flag to the top of the title
