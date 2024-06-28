@@ -402,13 +402,15 @@ with tab2:
     # Rename the column for clarity
     merged_data = merged_data.rename(columns={'Total Duration': 'Total Weekly Duration'})
 
-    # Create scatter plot using Plotly Express
-    fig = px.scatter(merged_data, x='Workout Level', y='Total Weekly Duration', color='Participant',
-                    title='Relationship Between Workout Level and Total Weekly Duration',
-                    labels={'Total Weekly Duration': 'Total Weekly Duration (minutes)'})
-
-    # Show the plot in Streamlit    
-    st.plotly_chart(fig)
+    # Create the Altair scatter plot
+    chart = alt.Chart(merged_data).mark_circle(size=60).encode(
+        x=alt.X('Workout Level:N', axis=alt.Axis(labelAngle=-45)),  # Workout Level as nominal (categorical)
+        y='Total Weekly Duration:Q',  # Total Weekly Duration as quantitative
+        color='Participant:N',  # Color by Participant
+        tooltip=['Participant', 'Workout Level', 'Total Weekly Duration']  # Add tooltips
+    ).properties(
+        title='Relationship Between Workout Level and Total Weekly Duration'
+    ).interactive()
 
 
 with tab3:
