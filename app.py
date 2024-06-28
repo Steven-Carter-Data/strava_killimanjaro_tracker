@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import statsmodels
 import altair as alt
+import matplotlib.pyplot as plt
 
 # Set app layout parameters
 st.set_page_config(layout="wide")
@@ -398,6 +399,16 @@ with tab3:
     st.header("Strava Competition Leaderboard:hiking_boot::mountain:")
 
     st.dataframe(leaderboard_df)
+
+    # Leaderboard Chart
+    st.header("Strava Competition Leaderboard Visualization")
+    plt.figure(figsize=(10, 6))
+    plt.bar(leaderboard_df['Participant'], leaderboard_df['Weeks Met Both Requirements'])
+    plt.xlabel('Participant')
+    plt.ylabel('Weeks Met Both Requirements')
+    plt.title('Overall Leaderboard')
+    plt.xticks(rotation=45)
+    st.pyplot(plt)
 
     
 
