@@ -418,30 +418,6 @@ with tab3:
 
     st.dataframe(leaderboard_df)
 
-    fig = px.bar(leaderboard_df, x='Participant', y='Total Weeks Met',
-                 text='Total Weeks Met',
-                 title="Leaderboard: Total Weeks Participants Met Requirements",
-                 labels={'Total Weeks Met':'Weeks'},
-                 color='Total Weeks Met',
-                 color_continuous_scale='Viridis')  # Use a continuous color scale
-
-    # Customization Options
-    fig.update_layout(
-        xaxis_title='Bourbon Chaser',
-        yaxis_title='Total Weeks Met',
-        xaxis={'categoryorder': 'total descending'},
-        plot_bgcolor='#262730',  # Dark background
-        paper_bgcolor='#262730',  # Dark background for plot area
-        font=dict(color="#FAFAFA"),  # White text color
-        title_font=dict(size=20),
-        title_x=0.5  # Center align the title
-    )
-
-    fig.update_traces(textposition='outside', textfont=dict(size=14))  # Text outside bars
-
-    st.plotly_chart(fig)
-
-
 
     
 
