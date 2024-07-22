@@ -319,15 +319,24 @@ with tab1:
         for participant in progress_df['Participant'].unique():
             participant_data = progress_df[progress_df['Participant'] == participant]
             total_weeks = participant_data['Week'].nunique()
-            weeks_met_min_hours = participant_data['Meets Min Hours'].sum()
-            weeks_met_zone2_and_above = participant_data['Meets Zone 2 and Above Hours'].sum()
+
+            # For Weeks 1 and 2, check both requirements
+            weeks_met_both_requirements = participant_data[
+                (participant_data['Week'].isin([1, 2])) & 
+                (participant_data['Meets Min Hours']) & 
+                (participant_data['Meets Zone 2 and Above Hours'])
+            ].shape[0]
+
+            # For Weeks 3 to 10, check only the total duration requirement
+            weeks_met_min_hours = participant_data[
+                (participant_data['Week'] >= 3) & 
+                (participant_data['Meets Min Hours'])
+            ].shape[0]
 
             leaderboard.append({
                 'Participant': participant,
-                #'Total Weeks': total_weeks,
-                'Weeks Met Min Hours': weeks_met_min_hours,
-                'Weeks Met Zone 2 and Above': weeks_met_zone2_and_above,
-                'Weeks Met Both Requirements': participant_data[(participant_data['Meets Min Hours']) & (participant_data['Meets Zone 2 and Above Hours'])].shape[0]
+                'Weeks Met Both Requirements (Weeks 1-2)': weeks_met_both_requirements,
+                'Weeks Met Min Hours (Weeks 3-10)': weeks_met_min_hours
             })
         return pd.DataFrame(leaderboard)
 
@@ -396,32 +405,36 @@ with tab3:
 
     # Include title in the app
     st.markdown("<div class='title-font'>Throne of Africa Strava Bourbon Chasers Competition</div>", unsafe_allow_html=True)
-    st.header("Strava Competition Leaderboard:hiking_boot::mountain:")
+    st.header("Strava Competition Leaderboard :hiking_boot: :mountain:")
 
     st.dataframe(leaderboard_df)
 
-    fig = px.bar(leaderboard_df, x='Participant', y='Weeks Met Both Requirements',
-                 text='Weeks Met Both Requirements',
-                 title="Weeks Participants Met Both Requirements",
-                 labels={'Weeks Met Both Requirements':'Weeks'},
-                 color='Weeks Met Both Requirements',
-                 color_continuous_scale='Viridis')  # Use a continuous color scale
+    fig = px.bar(leaderboard_df, x='Participant', y=['Weeks Met Both Requirements (Weeks 1-2)', 'Weeks Met Min Hours (Weeks 3-10)'],
+                 text_auto=True,
+                 title="Leaderboard: Weeks Participants Met Requirements",
+                 labels={'value': 'Weeks', 'Participant': 'Participant'},
+                 barmode='group',
+                 color_discrete_map={
+                     'Weeks Met Both Requirements (Weeks 1-2)': '#1EB53A',
+                     'Weeks Met Min Hours (Weeks 3-10)': '#00A3DD'
+                 })
 
     # Customization Options
     fig.update_layout(
         xaxis_title='Participant',
-        yaxis_title='Weeks Met Both Requirements',
+        yaxis_title='Weeks Met Requirements',
         xaxis={'categoryorder': 'total descending'},
         plot_bgcolor='#262730',  # Dark background
         paper_bgcolor='#262730',  # Dark background for plot area
         font=dict(color="#FAFAFA"),  # White text color
         title_font=dict(size=20),
-        title_x=0.0  # Left align the title
+        title_x=0.5  # Center align the title
     )
 
     fig.update_traces(textposition='outside', textfont=dict(size=14))  # Text outside bars
 
     st.plotly_chart(fig)
+
 
 
 
