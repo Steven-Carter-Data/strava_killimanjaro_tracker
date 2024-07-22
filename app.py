@@ -349,7 +349,7 @@ with tab1:
         leaderboard_df = leaderboard_df.sort_values(by='Total Weeks Met', ascending=False).reset_index(drop=True)
         return leaderboard_df
 
-    leaderboard_df = calculate_leaderboard(progress_df)
+leaderboard_df = calculate_leaderboard(progress_df)
 
 with tab2:
     # Add flag to the top of the title
@@ -427,7 +427,7 @@ with tab3:
 
     # Customization Options
     fig.update_layout(
-        xaxis_title='Participant',
+        xaxis_title='Bourbon Chaser',
         yaxis_title='Total Weeks Met',
         xaxis={'categoryorder': 'total descending'},
         plot_bgcolor='#262730',  # Dark background
