@@ -333,12 +333,21 @@ with tab1:
                 (participant_data['Meets Min Hours'])
             ].shape[0]
 
+            total_weeks_met = weeks_met_both_requirements + weeks_met_min_hours
+
             leaderboard.append({
-                'Participant': participant,
+                'Bourbon Chaser': participant,
                 'Weeks Met Both Requirements (Weeks 1-2)': weeks_met_both_requirements,
-                'Weeks Met Min Hours (Weeks 3-10)': weeks_met_min_hours
+                'Weeks Met Min Hours (Weeks 3-10)': weeks_met_min_hours,
+                'Total Weeks Met': total_weeks_met
             })
-        return pd.DataFrame(leaderboard)
+        
+        # Create the leaderboard dataframe
+        leaderboard_df = pd.DataFrame(leaderboard)
+
+        # Sort the dataframe by 'Total Weeks Met' in descending order
+        leaderboard_df = leaderboard_df.sort_values(by='Total Weeks Met', ascending=False).reset_index(drop=True)
+        return leaderboard_df
 
     leaderboard_df = calculate_leaderboard(progress_df)
 
@@ -409,20 +418,17 @@ with tab3:
 
     st.dataframe(leaderboard_df)
 
-    fig = px.bar(leaderboard_df, x='Participant', y=['Weeks Met Both Requirements (Weeks 1-2)', 'Weeks Met Min Hours (Weeks 3-10)'],
-                 text_auto=True,
-                 title="Leaderboard: Weeks Participants Met Requirements",
-                 labels={'value': 'Weeks', 'Participant': 'Participant'},
-                 barmode='group',
-                 color_discrete_map={
-                     'Weeks Met Both Requirements (Weeks 1-2)': '#1EB53A',
-                     'Weeks Met Min Hours (Weeks 3-10)': '#00A3DD'
-                 })
+    fig = px.bar(leaderboard_df, x='Participant', y='Total Weeks Met',
+                 text='Total Weeks Met',
+                 title="Leaderboard: Total Weeks Participants Met Requirements",
+                 labels={'Total Weeks Met':'Weeks'},
+                 color='Total Weeks Met',
+                 color_continuous_scale='Viridis')  # Use a continuous color scale
 
     # Customization Options
     fig.update_layout(
         xaxis_title='Participant',
-        yaxis_title='Weeks Met Requirements',
+        yaxis_title='Total Weeks Met',
         xaxis={'categoryorder': 'total descending'},
         plot_bgcolor='#262730',  # Dark background
         paper_bgcolor='#262730',  # Dark background for plot area
@@ -434,7 +440,6 @@ with tab3:
     fig.update_traces(textposition='outside', textfont=dict(size=14))  # Text outside bars
 
     st.plotly_chart(fig)
-
 
 
 
