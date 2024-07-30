@@ -340,10 +340,10 @@ def calculate_leaderboard(progress_df):
             'Participant': participant,
             'Week 1 - Met Min Hours': week1_met_min_hours,
             'Week 1 - Met Zone 2 and Above': week1_met_zone2_and_above,
-            'Week 1 - Met Both Requirements': week1_met_both,
+            #'Week 1 - Met Both Requirements': week1_met_both,
             'Week 2 - Met Min Hours': week2_met_min_hours,
             'Week 2 - Met Zone 2 and Above': week2_met_zone2_and_above,
-            'Week 2 - Met Both Requirements': week2_met_both,
+            #'Week 2 - Met Both Requirements': week2_met_both,
             'Weeks Met Min Hours (Week 3-10)': weeks_met_min_hours_wk3_10,
             'Total Points': total_points
         })
