@@ -314,40 +314,43 @@ with tab1:
     progress_df = calculate_progress(data)
 
     # Calculate leaderboard
-    def calculate_leaderboard(progress_df):
-        leaderboard = []
-        for participant in progress_df['Participant'].unique():
-            participant_data = progress_df[progress_df['Participant'] == participant]
-            total_weeks = participant_data['Week'].nunique()
-
-            # For Weeks 1 and 2, check both requirements
-            weeks_met_both_requirements = participant_data[
-                (participant_data['Week'].isin([1, 2])) & 
-                (participant_data['Meets Min Hours']) & 
-                (participant_data['Meets Zone 2 and Above Hours'])
-            ].shape[0]
-
-            # For Weeks 3 to 10, check only the total duration requirement
-            weeks_met_min_hours = participant_data[
-                (participant_data['Week'] >= 3) & 
-                (participant_data['Meets Min Hours'])
-            ].shape[0]
-
-            total_weeks_met = weeks_met_both_requirements + weeks_met_min_hours
-
-            leaderboard.append({
-                'Bourbon Chaser': participant,
-                'Weeks Met Both Requirements (Weeks 1-2)': weeks_met_both_requirements,
-                'Weeks Met Min Hours (Weeks 3-10)': weeks_met_min_hours,
-                'Total Weeks Met': total_weeks_met
-            })
+def calculate_leaderboard(progress_df):
+    leaderboard = []
+    for participant in progress_df['Participant'].unique():
+        participant_data = progress_df[progress_df['Participant'] == participant]
         
-        # Create the leaderboard dataframe
-        leaderboard_df = pd.DataFrame(leaderboard)
+        # Week 1 calculations
+        week1_data = participant_data[participant_data['Week'] == 1]
+        week1_met_min_hours = week1_data['Meets Min Hours'].sum()
+        week1_met_zone2_and_above = week1_data['Meets Zone 2 and Above Hours'].sum()
+        week1_met_both = week1_data[(week1_data['Meets Min Hours']) & (week1_data['Meets Zone 2 and Above Hours'])].shape[0]
+        
+        # Week 2 calculations
+        week2_data = participant_data[participant_data['Week'] == 2]
+        week2_met_min_hours = week2_data['Meets Min Hours'].sum()
+        week2_met_zone2_and_above = week2_data['Meets Zone 2 and Above Hours'].sum()
+        week2_met_both = week2_data[(week2_data['Meets Min Hours']) & (week2_data['Meets Zone 2 and Above Hours'])].shape[0]
+        
+        # Weeks 3 to 10: Check only Total Duration requirement
+        weeks_met_min_hours_wk3_10 = participant_data[(participant_data['Week'] > 2) & (participant_data['Meets Min Hours'])].shape[0]
+        
+        total_points = week1_met_min_hours + week1_met_zone2_and_above + week1_met_both + week2_met_min_hours + week2_met_zone2_and_above + week2_met_both + weeks_met_min_hours_wk3_10
 
-        # Sort the dataframe by 'Total Weeks Met' in descending order
-        leaderboard_df = leaderboard_df.sort_values(by='Total Weeks Met', ascending=False).reset_index(drop=True)
-        return leaderboard_df
+        leaderboard.append({
+            'Participant': participant,
+            'Week 1 - Met Min Hours': week1_met_min_hours,
+            'Week 1 - Met Zone 2 and Above': week1_met_zone2_and_above,
+            'Week 1 - Met Both Requirements': week1_met_both,
+            'Week 2 - Met Min Hours': week2_met_min_hours,
+            'Week 2 - Met Zone 2 and Above': week2_met_zone2_and_above,
+            'Week 2 - Met Both Requirements': week2_met_both,
+            'Weeks Met Min Hours (Week 3-10)': weeks_met_min_hours_wk3_10,
+            'Total Points': total_points
+        })
+
+    leaderboard_df = pd.DataFrame(leaderboard)
+    leaderboard_df = leaderboard_df.sort_values(by='Total Points', ascending=False)
+    return leaderboard_df
 
 leaderboard_df = calculate_leaderboard(progress_df)
 
