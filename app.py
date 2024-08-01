@@ -13,7 +13,9 @@ import altair as alt
 import matplotlib.pyplot as plt
 
 # Set app layout parameters
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title= "THRONE_BC",
+    layout="wide")
 
 # Create tabs
 tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Leaderboard"])
