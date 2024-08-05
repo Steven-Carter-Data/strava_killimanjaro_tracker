@@ -424,7 +424,7 @@ with tab3:
     st.dataframe(leaderboard_df)
 
 with tab4:
-    st.header("Information")
+    st.header("Kilimanjaro Preparation :mountain:")
 
     # Selection for PDF or PNG
     option = st.radio(
