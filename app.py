@@ -18,7 +18,7 @@ st.set_page_config(
     layout="wide")
 
 # Create tabs
-tab1, tab2, tab3 = st.tabs(["Overview", "Zone 2 Analysis", "Leaderboard"])
+tab1, tab2, tab3, tab4 = st.tabs(["Overview", "Zone 2 Analysis", "Leaderboard", "Information"])
 
 # Read the font file and encode it in base64
 font_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/JUSTICE%20LEAGUE.ttf"
@@ -422,6 +422,25 @@ with tab3:
     st.header("Strava Competition Leaderboard :hiking_boot: :mountain:")
 
     st.dataframe(leaderboard_df)
+
+with tab4:
+    st.header("Information")
+
+    # Selection for PDF or PNG
+    option = st.radio(
+        "Select the document you want to view:",
+        ("Kilimanjaro Packing List", "Information Image")
+    )
+
+    # Display selected document
+    if option == "Kilimanjaro Packing List":
+        pdf_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Kilimanjaro+Packing+List+041624.pdf"
+        st.markdown(f"""
+            <iframe src="{pdf_url}" width="700" height="1000" style="border: none;"></iframe>
+        """, unsafe_allow_html=True)
+    elif option == "Grand Traverse Route":
+        png_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
+        st.image(png_url, use_column_width=True)
 
 
     
