@@ -434,11 +434,11 @@ with tab4:
 
     # Display selected document
     if option == "Kilimanjaro Packing List":
-        png_url0 = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Kilimanjaro_Packing_List.png"
-        st.image(png_url0, use_column_width=True)
+        png_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Kilimanjaro_Packing_List.png"
+        st.image(png_url, use_column_width=True)
     elif option == "Grand Traverse Route":
-        png_url1 = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
-        st.image(png_url1, use_column_width=True)
+        jpg_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
+        st.image(jpg_url, use_column_width=True)
 
 
     
