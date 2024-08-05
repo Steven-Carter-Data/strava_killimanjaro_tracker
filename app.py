@@ -429,7 +429,7 @@ with tab4:
     # Selection for PDF or PNG
     option = st.radio(
         "Select the document you want to view:",
-        ("Kilimanjaro Packing List", "Grand Traverse Route")
+        ("Kilimanjaro Packing List", "Grand Traverse Route", "Climate Zones")
     )
 
     # Display selected document
@@ -439,6 +439,9 @@ with tab4:
     elif option == "Grand Traverse Route":
         jpg_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
         st.image(jpg_url, use_column_width=True)
+    elif option == "Climate Zones":
+        climate_png_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Climate_zones.png"
+        st.image(climate_png_url, use_column_width=True)
 
 
     
