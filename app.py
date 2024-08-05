@@ -429,18 +429,16 @@ with tab4:
     # Selection for PDF or PNG
     option = st.radio(
         "Select the document you want to view:",
-        ("Kilimanjaro Packing List", "Information Image")
+        ("Kilimanjaro Packing List", "Grand Traverse Route")
     )
 
     # Display selected document
     if option == "Kilimanjaro Packing List":
-        pdf_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Kilimanjaro+Packing+List+041624.pdf"
-        st.markdown(f"""
-            <iframe src="{pdf_url}" width="700" height="1000" style="border: none;"></iframe>
-        """, unsafe_allow_html=True)
+        png_url0 = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Kilimanjaro_Packing_List.png"
+        st.image(png_url0, use_column_width=True)
     elif option == "Grand Traverse Route":
-        png_url = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
-        st.image(png_url, use_column_width=True)
+        png_url1 = "https://github.com/Steven-Carter-Data/strava_killimanjaro_tracker/raw/main/Grand_Traverse_Route.jpg"
+        st.image(png_url1, use_column_width=True)
 
 
     
